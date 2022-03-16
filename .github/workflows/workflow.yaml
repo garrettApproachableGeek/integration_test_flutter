@@ -6,13 +6,12 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       # Flutter setup
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '2.10.2'
           channel: stable
 
       - name: "Enable web"
