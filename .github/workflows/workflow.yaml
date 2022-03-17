@@ -25,10 +25,12 @@ jobs:
 
       - name: "Setup chromedriver"
         uses: nanasess/setup-chromedriver@v1
-      - run: chromedriver --port=4444 --disable-gpu --url-base=/wd/hub &
+
+      - name: "Run chromedriver"  
+        run: chromedriver --port=4444 --disable-gpu --url-base=/wd/hub &
 
       - name: "Setup alias for google-chrome"
-      - run: |
+        run: |
           shopt -s expand_aliases
           which google-chrome
           alias google-chrome="xvfb-run -a --server-args="-screen 0 1280x1024x24 -ac -nolisten tcp -dpi 96 +extension RANDR" google-chrome"
