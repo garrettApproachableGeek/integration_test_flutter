@@ -22,16 +22,10 @@ jobs:
 
       - name: "Run chromedriver"  
         run: chromedriver --port=4444 --disable-gpu --url-base=/wd/hub &
-
-      - name: "Setup alias for google-chrome"
-        run: |
-          shopt -s expand_aliases
-          which google-chrome
-          alias google-chrome="xvfb-run -a --server-args=\"-screen 0 1280x1024x24 -ac -nolisten tcp -dpi 96 +extension RANDR\" google-chrome"
-          which google-chrome
           
       # Run integration tests
       - name: "Setup xcfb and run integration tests"
         run: |
           export DISPLAY=:99
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
           flutter drive --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome
