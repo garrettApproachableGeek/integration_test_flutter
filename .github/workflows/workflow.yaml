@@ -17,12 +17,6 @@ jobs:
       - name: "Enable web"
         run: "flutter config --enable-web"
 
-      - name: "Install Chrome"
-        run: |
-          export CHROME_VERSION=99.0.4844.74-1
-          wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb
-          sudo apt install -y /tmp/chrome.deb
-
       - name: "Setup chromedriver"
         uses: nanasess/setup-chromedriver@v1
 
@@ -33,7 +27,7 @@ jobs:
         run: |
           shopt -s expand_aliases
           which google-chrome
-          alias google-chrome="xvfb-run -a --server-args="-screen 0 1280x1024x24 -ac -nolisten tcp -dpi 96 +extension RANDR" google-chrome"
+          alias google-chrome="xvfb-run -a --server-args=\"-screen 0 1280x1024x24 -ac -nolisten tcp -dpi 96 +extension RANDR\" google-chrome"
           which google-chrome
           
       # Run integration tests
