@@ -19,6 +19,9 @@ jobs:
 
       - name: "Setup chromedriver"
         uses: nanasess/setup-chromedriver@v1.0.5
+
+      - name: "Disable dart devtools"
+        run: "flutter pub global deactivate devtools"
           
       # Run integration tests
       - name: "Setup xcfb and run integration tests"
@@ -28,4 +31,4 @@ jobs:
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
           flutter drive -v --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome
         env:
-          CHROMEDRIVER_ARGS: '--no-sandbox --headless'
+          CHROMEDRIVER_ARGS: '--no-sandbox --headless --disable-gpu'
