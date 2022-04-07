@@ -18,14 +18,14 @@ jobs:
         run: "flutter config --enable-web"
 
       - name: "Setup chromedriver"
-        uses: nanasess/setup-chromedriver@v1
-
-      - name: "Run chromedriver"  
-        run: chromedriver --port=4444 --disable-gpu --url-base=/wd/hub &
+        uses: nanasess/setup-chromedriver@v1.0.5
           
       # Run integration tests
       - name: "Setup xcfb and run integration tests"
         run: |
           export DISPLAY=:99
+          chromedriver --port=4444 --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
           flutter drive -v --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome
+        env:
+          CHROMEDRIVER_ARGS: '--no-sandbox --headless'
