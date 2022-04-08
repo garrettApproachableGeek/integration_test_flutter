@@ -7,11 +7,15 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Example test', () {
-    testWidgets('Can load', (WidgetTester tester) async {
-      WidgetsFlutterBinding.ensureInitialized();
-      runApp(const MyApp());
-      await tester.pumpAndSettle();
-      expect(find.text('Flutter Demo Home Page'), findsOneWidget);
-    });
+    testWidgets(
+      'Can load',
+      (WidgetTester tester) async {
+        WidgetsFlutterBinding.ensureInitialized();
+        runApp(const MyApp());
+        await tester.pumpAndSettle();
+        expect(find.text('Flutter Demo Home Page'), findsOneWidget);
+      },
+      semanticsEnabled: false,
+    );
   });
 }
