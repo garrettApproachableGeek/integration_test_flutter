@@ -23,5 +23,7 @@ jobs:
       - name: Run integration tests
         run: |
           sudo apt-get install xvfb
-          chromedriver --port=4444 --enable-chrome-logs --url-base=/wd/hub &
-          xvfb-run --auto-servernum flutter drive --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome --release --browser-args "--no-sandbox --disable-gpu"
+          chromedriver --port=4444 --enable-chrome-logs --disable-gpu --no-sandbox --url-base=/wd/hub &
+          xvfb-run --auto-servernum flutter drive --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome --release
+        env:
+          CHROME_NO_SANDBOX: "true"
