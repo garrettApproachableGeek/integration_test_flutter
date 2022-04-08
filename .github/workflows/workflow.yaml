@@ -33,5 +33,5 @@ jobs:
           export DISPLAY=:99
           chromedriver --port=4444 --url-base=/wd/hub &
           flutter drive -v --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome
-        # env:
-        #   CHROMEDRIVER_ARGS: '--no-sandbox --headless'
+        env:
+          CHROMEDRIVER_ARGS: '--no-sandbox --headless'
