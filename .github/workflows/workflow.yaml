@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       # Flutter setup
       - uses: actions/checkout@v2
@@ -18,17 +18,9 @@ jobs:
         run: "flutter config --enable-web"
 
       - name: "Setup chromedriver"
-        uses: nanasess/setup-chromedriver@v1.0.5
+        uses: nanasess/setup-chromedriver@v1
 
-      - name: Setup xvfb (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 libxcb-xfixes0
-          
       - name: Run integration tests
         run: |
-          export DISPLAY=:99
           chromedriver --port=4444 --enable-chrome-logs --headless --url-base=/wd/hub &
-          # start xvfb in the background
-          sudo /usr/bin/Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-          flutter drive --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome --release
+          flutter drive --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome
