@@ -20,16 +20,12 @@ jobs:
       - name: "Setup chromedriver"
         uses: nanasess/setup-chromedriver@v1.0.5
 
-      - name: Run headless test
+      - name: Run integration tests
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: npm test
-          
-      # Run integration tests
-      - name: "Setup xcfb and run integration tests"
-        run: |
-          export DISPLAY=:99
-          chromedriver --port=4444 --url-base=/wd/hub &
-          flutter drive -v --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome
+          run: |
+            export DISPLAY=:99
+            chromedriver --port=4444 --url-base=/wd/hub &
+            flutter drive -v --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome
         env:
           CHROMEDRIVER_ARGS: '--no-sandbox --headless'
