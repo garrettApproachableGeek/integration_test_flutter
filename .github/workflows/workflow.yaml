@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       # Flutter setup
       - uses: actions/checkout@v2
@@ -22,5 +22,6 @@ jobs:
 
       - name: Run integration tests
         run: |
+          xvfb-run --auto-servernum
           chromedriver --port=4444 --enable-chrome-logs --url-base=/wd/hub &
           flutter drive -vv --driver=test_driver/integration_test.dart --target=integration_test/example_test.dart -d chrome --release
